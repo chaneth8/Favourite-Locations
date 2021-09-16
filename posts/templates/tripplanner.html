@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href = "http://fonts.googleapis.com/css2?family=Poppins&display=swap" rel = "stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class = "jumbotron">
+        <div class = "container-fluid center">
+            <h1>Welcome, {{ name }}!</h1>
+            <h2> Plan Your Trip Here: Find The Route And Distance Between Two Places</h2>
+
+            <div class = "center"><a href="{% url 'home' name %}">Return To The Homepage</a></div>       
+
+
+            <form class = "form-horizontal">
+                <div class = "form-group">
+                    <label for = "from" class = "col-xs-2 control label">To:</label>
+                    <div class = "col-xs-4">
+                        <input type = "text" id = "from" placeholder = "Origin" class = "form-control">
+                    </div>
+
+                    <label for = "to" class = "col-xs-2 control label">From:</label>
+                    <div class = "col-xs-4">
+                        <input type = "text" id = "to" placeholder = "Destination" class = "form-control">
+                    </div>
+                </div>
+            </form>
+
+            <div class = "col-xs-offset-2 col-xs-10">
+                <input type="submit" onclick="calcRoute();"></button>
+            </div>
+
+            <div class = "container-fluid">
+                <div id = "googleMap"></div>
+
+                <div id = "output"></div></div>
+        </div>
+    </div>
+    <script src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBPUncQlBWmbT_Hf64eUsO_e9j9iRa-8YQ&libraries=places"></script>
+    <script src = "{% static 'app.js' %}"></script>
+</body>
+
+</html>

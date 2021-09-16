@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<style>
+    img {
+        max-height: 200px;
+    }
+</style>
+<html>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href = "http://fonts.googleapis.com/css2?family=Poppins&display=swap" rel = "stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+    <div class = "jumbotron">
+        <div class = "container-fluid center"> 
+            <h1>Welcome To Favourite Locations, {{ name }}!</h1>
+            <a href="{% url 'add_form' name %}">Add a New Photo</a>
+            <a href="{% url 'delete_form' name %}" class = "center">Delete A Post</a>
+            <a href="{% url 'login_screen' %}" class = "center">Logout</a>
+            <a href="{% url 'trip_planner' name %}" class = "center"> Plan A Trip Here</a>
+        </div>
+
+        <div class = "container-fluid">
+            <ul id = "posts">
+                {% for post in posts %}
+                <table class = "center_table">
+                    <tr>
+                        <th class = "center">{{ post.title }}</th>
+                    </tr>
+                    <tr>
+                        <td class = "center"><img src="{{ post.cover.url}}" alt="{{ post.title }}"></td>
+                    </tr>
+                    <tr>
+                        <td class = "center">Taken by: {{ post.user}}</td>
+                    </tr>
+                    <tr>
+                        <td class = "center">Taken in: {{ post.location}}</td>
+                    </tr>
+                    <tr>
+                        <td class = "center"><a href="{% url 'add_comment_form' post.title name%}">Add a New Comment</a></td>
+                    </tr>
+                    <tr>
+                        <td class = "center"> <a href="{% url 'comments' post.title name%}">See All Comments</a></td>
+                    </tr>
+                </table>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div id = "no_comments"></div>
+    
+    <script type="text/babel">
+        function No_Comments() {
+            return (
+                <div class = "center">
+                    <img src="{% static 'sad.jpg' %}" alt="My image"/>
+
+
+                    <h2>Sorry! No images have been posted yet! </h2>
+                    
+                    <h3>Would you like to be the first?</h3>
+                </div>
+            );
+        }
+
+        if (document.getElementById("posts").innerHTML.trim() == ""){
+            ReactDOM.render(<No_Comments/>, document.querySelector("#no_comments"));
+        }    
+    </script>
+</html>

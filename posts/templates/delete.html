@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href = "http://fonts.googleapis.com/css2?family=Poppins&display=swap" rel = "stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+  <div class = "jumbotron">
+    <div class = "container-fluid center">
+        <h1>Welcome, {{ name }}!</h2>
+        <h2>Delete A Post Here</h2>
+    </div>
+  </div>
+
+  <img class = "centered_beach_image" src="{% static 'beach.jpg' %}" alt="Beach" style="width:35%">
+
+  <br>
+
+  <form class = "center" action = "{% url 'delete' name%}" method="post">
+    {% csrf_token %}
+    <select name = "posts">
+        {% for user_post in user_posts %}
+          <option value = "{{user_post.title}}"> {{user_post.title}} </option>
+        {% endfor %}
+    </select>
+    <input type="submit">
+  </form>
+</html>
